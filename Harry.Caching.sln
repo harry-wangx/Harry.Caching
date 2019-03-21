@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.28714.193
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Harry.Caching.Abstractions", "Harry.Caching.Abstractions\Harry.Caching.Abstractions.csproj", "{7AABE44D-2DD9-4E1D-845D-73F3DE836086}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harry.Caching", "Harry.Caching\Harry.Caching.csproj", "{CC3098D8-BB69-4CF9-8A13-8D29C8680323}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Harry.Caching", "Harry.Caching\Harry.Caching.csproj", "{CC3098D8-BB69-4CF9-8A13-8D29C8680323}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harry.Caching.Test", "Harry.Caching.Test\Harry.Caching.Test.csproj", "{8ECD6060-27F3-49B0-9D2D-609F2FD4D219}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{CC3098D8-BB69-4CF9-8A13-8D29C8680323}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC3098D8-BB69-4CF9-8A13-8D29C8680323}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC3098D8-BB69-4CF9-8A13-8D29C8680323}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ECD6060-27F3-49B0-9D2D-609F2FD4D219}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ECD6060-27F3-49B0-9D2D-609F2FD4D219}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ECD6060-27F3-49B0-9D2D-609F2FD4D219}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ECD6060-27F3-49B0-9D2D-609F2FD4D219}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
