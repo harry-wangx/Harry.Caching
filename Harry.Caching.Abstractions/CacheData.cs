@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Harry.Caching
 {
-    public class CacheData<T>
+    public class CacheData<T> : ICacheData
     {
         protected CacheData() { }
 

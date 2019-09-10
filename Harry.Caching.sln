@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Harry.Caching.Abstractions"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Harry.Caching", "Harry.Caching\Harry.Caching.csproj", "{CC3098D8-BB69-4CF9-8A13-8D29C8680323}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Harry.Caching.Test", "Harry.Caching.Test\Harry.Caching.Test.csproj", "{8ECD6060-27F3-49B0-9D2D-609F2FD4D219}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Harry.Caching.Test", "Harry.Caching.Test\Harry.Caching.Test.csproj", "{8ECD6060-27F3-49B0-9D2D-609F2FD4D219}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "Sample\Sample.csproj", "{8EB801DF-FCC6-4440-98D7-2909B6C3ECB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{8ECD6060-27F3-49B0-9D2D-609F2FD4D219}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8ECD6060-27F3-49B0-9D2D-609F2FD4D219}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8ECD6060-27F3-49B0-9D2D-609F2FD4D219}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EB801DF-FCC6-4440-98D7-2909B6C3ECB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EB801DF-FCC6-4440-98D7-2909B6C3ECB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EB801DF-FCC6-4440-98D7-2909B6C3ECB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EB801DF-FCC6-4440-98D7-2909B6C3ECB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

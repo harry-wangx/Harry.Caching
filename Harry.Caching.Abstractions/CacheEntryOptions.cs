@@ -11,7 +11,7 @@ namespace Harry.Caching
         private TimeSpan? _slidingExpiration;
 
         /// <summary>
-        /// Gets or sets an absolute expiration date for the cache entry.
+        /// 绝对过期时间
         /// </summary>
         public DateTimeOffset? AbsoluteExpiration
         {
@@ -26,7 +26,7 @@ namespace Harry.Caching
         }
 
         /// <summary>
-        /// Gets or sets an absolute expiration time, relative to now.
+        /// 设置/获取一个TimeSpan,绝对过期时间等于当前时间加上此值
         /// </summary>
         public TimeSpan? AbsoluteExpirationRelativeToNow
         {
@@ -49,8 +49,7 @@ namespace Harry.Caching
         }
 
         /// <summary>
-        /// Gets or sets how long a cache entry can be inactive (e.g. not accessed) before it will be removed.
-        /// This will not extend the entry lifetime beyond the absolute expiration (if set).
+        /// 相对过期时间,即缓存项在删除前可以处于非活动状态(未访问)的时长. 但如果设置了绝对期时间,缓存项的生存期不会超过绝对过期时间
         /// </summary>
         public TimeSpan? SlidingExpiration
         {

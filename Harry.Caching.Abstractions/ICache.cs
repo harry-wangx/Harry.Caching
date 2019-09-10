@@ -19,5 +19,12 @@ namespace Harry.Caching
         void Remove(string key);
 
         Task RemoveAsync(string key, CancellationToken token = default);
+
+        ///// <summary>
+        ///// 通知更新
+        ///// </summary>
+        ///// <param name="key"></param>
+        ///// <param name="version"></param>
+        //void Publish(string key, string version);
     }
 }
