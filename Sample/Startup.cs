@@ -15,17 +15,16 @@ namespace Sample
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCache(options => options.UseL2Cache = true);
+            services.AddCache();
             services.AddDistributedMemoryCache();
-            services.AddSingleton<HarryCachingEventHandler>();
-            services.AddEventBus(builder => builder.UseMemory().InitEventBus(bus => bus.Subscribe<HarryCachingEvent, HarryCachingEventHandler>()));
+
+            //如要使用缓存自动更新,必须开启事件总线,并注册CachingEventHandler订阅
+            services.AddEventBus(builder => builder.UseMemory().InitEventBus(bus => bus.Subscribe<CachingEvent, CachingEventHandler>()));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -33,21 +32,16 @@ namespace Sample
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.Run(async (context) =>
-            //{
-
-            //    await context.Response.WriteAsync("Hello World!");
-            //});
-
             app.Map("/set", builder =>
             {
                 builder.Run(async (context) =>
                 {
                     var now = DateTime.Now.ToString();
-                    context.RequestServices.GetRequiredService<ICache>().Set("now", now, new CacheEntryOptions() { SlidingExpiration = TimeSpan.FromMinutes(2) });
+                    context.RequestServices.GetRequiredService<ICache>().Set("now", now, options => options.SlidingExpiration = TimeSpan.FromMinutes(2));
                     await context.Response.WriteAsync(now);
                 });
             });
+
             app.Map("/get", builder =>
             {
                 builder.Run(async (context) =>
@@ -55,6 +49,11 @@ namespace Sample
                     var now = context.RequestServices.GetRequiredService<ICache>().Get<string>("now") ?? "null";
                     await context.Response.WriteAsync(now);
                 });
+            });
+
+            app.Run(async (context) =>
+            {
+                await context.Response.WriteAsync("Hello World!");
             });
         }
     }

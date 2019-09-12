@@ -9,15 +9,15 @@ namespace Harry.Caching.EventHandling
     /// <summary>
     /// 此处理程序用于移除对应的本地缓存
     /// </summary>
-    public class HarryCachingEventHandler : IEventHandler<HarryCachingEvent>
+    public class CachingEventHandler : IEventHandler<CachingEvent>
     {
         private readonly IMemoryCache _memoryCache;
-        public HarryCachingEventHandler(IMemoryCache memoryCache)
+        public CachingEventHandler(IMemoryCache memoryCache)
         {
             this._memoryCache = memoryCache;
         }
 
-        public Task Handle(HarryCachingEvent @event)
+        public Task Handle(CachingEvent @event)
         {
             if (@event.CacheKey == null)
             {

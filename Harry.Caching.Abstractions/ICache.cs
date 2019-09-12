@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Memory;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -12,19 +14,12 @@ namespace Harry.Caching
 
         Task<T> GetAsync<T>(string key, CancellationToken token = default);
 
-        void Set<T>(string key, T value, CacheEntryOptions options);
+        void Set<T>(string key, T value, MemoryCacheEntryOptions memoryOptions, DistributedCacheEntryOptions distributedOptions = null);
 
-        Task SetAsync<T>(string key, T value, CacheEntryOptions options, CancellationToken token = default);
+        Task SetAsync<T>(string key, T value, MemoryCacheEntryOptions memoryOptions, DistributedCacheEntryOptions distributedOptions = null, CancellationToken token = default);
 
         void Remove(string key);
 
         Task RemoveAsync(string key, CancellationToken token = default);
-
-        ///// <summary>
-        ///// 通知更新
-        ///// </summary>
-        ///// <param name="key"></param>
-        ///// <param name="version"></param>
-        //void Publish(string key, string version);
     }
 }

@@ -3,11 +3,11 @@
     /// <summary>
     /// 此事件用于设置分布式缓存后,通知其它服务器从分布式缓存更新值
     /// </summary>
-    public class HarryCachingEvent : Harry.EventBus.Event
+    public class CachingEvent : Harry.EventBus.Event
     {
-        protected HarryCachingEvent() { }
+        protected CachingEvent() { }
 
-        public HarryCachingEvent(string cacheKey, string version)
+        public CachingEvent(string cacheKey, string version)
         {
             this.CacheKey = cacheKey;
             this.Version = version;

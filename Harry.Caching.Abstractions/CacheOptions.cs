@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Memory;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,11 +8,8 @@ namespace Harry.Caching
 {
     public class CacheOptions
     {
-        /// <summary>
-        /// 是否使用二级缓存
-        /// </summary>
-        public bool UseL2Cache { get; set; } = false;
+        public DistributedCacheEntryOptions DefaultDistributedCacheEntryOptions { get; } = new DistributedCacheEntryOptions() { SlidingExpiration = TimeSpan.FromHours(2) };
 
-        public CacheEntryOptions DefaultEntryOptions { get; private set; } = new CacheEntryOptions() { SlidingExpiration = TimeSpan.FromMinutes(5) };
+        public MemoryCacheEntryOptions DefaultMemoryCacheEntryOptions { get; } = new MemoryCacheEntryOptions() { SlidingExpiration = TimeSpan.FromMinutes(5) };
     }
 }

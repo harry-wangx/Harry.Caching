@@ -1,4 +1,5 @@
 ﻿using Harry.Caching;
+using Harry.Caching.EventHandling;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
@@ -20,6 +21,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddMemoryCache();
             services.TryAddSingleton<ICache, Cache>();
             services.TryAddSingleton<IConverter, JsonConverter>();
+
+            services.TryAddSingleton<CachingEventHandler>();
 
             if (options != null)
             {
