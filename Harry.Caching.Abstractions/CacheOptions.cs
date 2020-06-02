@@ -8,8 +8,8 @@ namespace Harry.Caching
 {
     public class CacheOptions
     {
-        public DistributedCacheEntryOptions DefaultDistributedCacheEntryOptions { get; } = new DistributedCacheEntryOptions() { SlidingExpiration = TimeSpan.FromHours(2) };
+        public Action<DistributedCacheEntryOptions> DefaultDistributedOptions { get; } = new Action<DistributedCacheEntryOptions>(options => options.SlidingExpiration = TimeSpan.FromHours(2));
 
-        public MemoryCacheEntryOptions DefaultMemoryCacheEntryOptions { get; } = new MemoryCacheEntryOptions() { SlidingExpiration = TimeSpan.FromMinutes(5) };
+        public Action<MemoryCacheEntryOptions> DefaultMemoryOptions { get; } = new Action<MemoryCacheEntryOptions>(options => options.SlidingExpiration = TimeSpan.FromMinutes(5));
     }
 }

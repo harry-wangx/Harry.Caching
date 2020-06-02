@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Harry.EventBus;
 using Harry.Caching.Events;
+using Microsoft.Extensions.Hosting;
 
 namespace Sample
 {
@@ -24,8 +25,7 @@ namespace Sample
             services.AddEventBus(builder => builder.UseMemory().InitEventBus(bus => bus.Subscribe<CachingEvent, CachingEventHandler>()));
         }
 
-
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -37,7 +37,7 @@ namespace Sample
                 builder.Run(async (context) =>
                 {
                     var now = DateTime.Now.ToString();
-                    context.RequestServices.GetRequiredService<ICache>().Set("now", now, options => options.SlidingExpiration = TimeSpan.FromMinutes(2));
+                    context.RequestServices.GetRequiredService<ICache>().Set("now", now, TimeSpan.FromMinutes(2));
                     await context.Response.WriteAsync(now);
                 });
             });
@@ -47,6 +47,19 @@ namespace Sample
                 builder.Run(async (context) =>
                 {
                     var now = context.RequestServices.GetRequiredService<ICache>().Get<string>("now") ?? "null";
+                    await context.Response.WriteAsync(now);
+                });
+            });
+
+            app.Map("/getOrSet", builder =>
+            {
+                builder.Run(async (context) =>
+                {
+                    var now = context.RequestServices.GetRequiredService<ICache>().Get<string>("now_getorset", () =>
+                    {
+                        Console.WriteLine("create cache data");
+                        return null;
+                    }, TimeSpan.FromMinutes(1)) ?? "null";
                     await context.Response.WriteAsync(now);
                 });
             });

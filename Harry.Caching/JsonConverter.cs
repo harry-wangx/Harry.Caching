@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Harry.Caching
 {
+    /// <summary>
+    /// Json转换器
+    /// </summary>
     public class JsonConverter : IConverter
     {
         public byte[] Serialize<T>(T value)

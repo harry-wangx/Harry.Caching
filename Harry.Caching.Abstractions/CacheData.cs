@@ -22,5 +22,6 @@ namespace Harry.Caching
         /// 缓存版本号,用来判断是否需要更新缓存
         /// </summary>
         public string Version { get; set; }
+
     }
 }
