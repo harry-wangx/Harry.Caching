@@ -23,7 +23,6 @@ namespace Harry.Caching
         private readonly IDistributedCache _distributedCache;
         private readonly IConverter _converter;
         private readonly ILogger _logger;
-        private readonly bool useL2Cache;
         public Cache(IServiceProvider serviceProvider, IMemoryCache memoryCache, IOptions<CacheOptions> optionsAccessor, ILoggerFactory loggerFactory)
         {
             this._serviceProvider = serviceProvider;
@@ -31,10 +30,11 @@ namespace Harry.Caching
             this._options = optionsAccessor.Value;
             this._logger = loggerFactory.CreateLogger<Cache>();
 
-            _distributedCache = this._serviceProvider.GetService<IDistributedCache>();
-            _converter = this._serviceProvider.GetService<IConverter>();
-
-            useL2Cache = _distributedCache != null && _converter != null;
+            if (_options.UseL2Cache)
+            {
+                _distributedCache = this._serviceProvider.GetRequiredService<IDistributedCache>();
+                _converter = this._serviceProvider.GetRequiredService<IConverter>();
+            }
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace Harry.Caching
 
             var cacheData = setMemoryCache(key, value, memoryOptionsAction);
 
-            if (useL2Cache)
+            if (_options.UseL2Cache)
             {
                 var distributedOptions = GetDefaultDistributedOptions();
                 distributedOptionsAction?.Invoke(distributedOptions);
@@ -149,7 +149,7 @@ namespace Harry.Caching
 
             var cacheData = setMemoryCache(key, value, memoryOptionsAction);
 
-            if (useL2Cache)
+            if (_options.UseL2Cache)
             {
                 var distributedOptions = GetDefaultDistributedOptions();
                 distributedOptionsAction?.Invoke(distributedOptions);
@@ -168,7 +168,7 @@ namespace Harry.Caching
 
             this._memoryCache.Remove(key);
 
-            if (useL2Cache)
+            if (_options.UseL2Cache)
             {
                 _distributedCache.Remove(key);
                 publish(key, null);
@@ -187,7 +187,7 @@ namespace Harry.Caching
 
             this._memoryCache.Remove(key);
 
-            if (useL2Cache)
+            if (_options.UseL2Cache)
             {
                 await _distributedCache.RemoveAsync(key, token ?? CancellationToken.None);
                 publish(key, null);
@@ -263,7 +263,7 @@ namespace Harry.Caching
             {
                 return value;
             }
-            if (useL2Cache)
+            if (_options.UseL2Cache)
             {
                 var bytes = _distributedCache.Get(key);
                 if (bytes != null && bytes.Length > 0)
@@ -285,7 +285,7 @@ namespace Harry.Caching
             {
                 return value;
             }
-            if (useL2Cache)
+            if (_options.UseL2Cache)
             {
                 var bytes = await _distributedCache.GetAsync(key, token);
                 if (bytes != null && bytes.Length > 0)
