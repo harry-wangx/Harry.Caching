@@ -1,0 +1,1 @@
+对Microsoft.Extensions.Caching的再封装 ，支持二级缓存。
