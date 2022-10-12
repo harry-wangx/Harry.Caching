@@ -23,12 +23,12 @@ builder.Services.AddCache(builder =>
     {
         if (int.TryParse(key, out int id) && id > 0 && id <= 10)
         {
-            return (true, new ProductModel() { Id = id, Name = "Product " + key });
+            return Task.FromResult((true, new ProductModel() { Id = id, Name = "Product " + key }));
         }
         else
         {
             //这样设计是为了避免请求不存在数据时,穿透缓存.
-            return (true, null);
+            return Task.FromResult<(bool, ProductModel)>((true, null));
         }
     });
 });

@@ -2,16 +2,15 @@
 {
     public class CustomCache<TModel> : ICache<TModel>
     {
-        private readonly Func<string, (bool, TModel)> _func;
-        public CustomCache(Func<string, (bool, TModel)> func)
+        private readonly Func<string, Task<(bool, TModel)>> _func;
+        public CustomCache(Func<string, Task<(bool, TModel)>> func)
         {
             _func = func ?? throw new ArgumentNullException(nameof(func));
         }
 
         public Task<(bool, TModel)> GetAsync(string key, CancellationToken token = default)
         {
-            var result = _func(key);
-            return Task.FromResult(result);
+            return _func(key);
         }
 
         public Task SetAsync(string key, TModel value, CancellationToken token = default)

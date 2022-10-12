@@ -69,7 +69,7 @@ namespace Harry.Caching
         /// <param name="func"></param>
         /// <param name="categoryName"></param>
         /// <returns></returns>
-        public static ICacheBuilder AddCustomCache<TModel>(this ICacheBuilder builder, Func<IServiceProvider, string, (bool, TModel)> func, string categoryName=null)
+        public static ICacheBuilder AddCustomCache<TModel>(this ICacheBuilder builder, Func<IServiceProvider, string, Task<(bool, TModel)>> func, string categoryName = null)
         {
             ArgumentNullException.ThrowIfNull(builder, nameof(builder));
             ArgumentNullException.ThrowIfNull(func, nameof(func));
