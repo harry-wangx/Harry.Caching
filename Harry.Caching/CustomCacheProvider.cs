@@ -9,14 +9,11 @@
         public CustomCacheProvider(ICache<T> cache, string categoryName = null)
         {
             _cache = cache ?? throw new ArgumentNullException(nameof(cache));
-            if (string.IsNullOrEmpty(categoryName))
+            if (string.IsNullOrWhiteSpace(categoryName))
             {
-                _categoryName = TypeNameHelper.GetTypeDisplayName(typeof(T));
+                throw new ArgumentNullException(nameof(categoryName), "categoryName不能为空");
             }
-            else
-            {
-                _categoryName = categoryName;
-            }
+            _categoryName = categoryName;
         }
 
         public int Order { get; set; } = 1000;

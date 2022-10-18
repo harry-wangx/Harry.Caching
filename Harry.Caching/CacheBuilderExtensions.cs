@@ -77,6 +77,33 @@ namespace Harry.Caching
             builder.Services.AddSingleton<ICacheProvider>(sp =>
             {
                 var cache = new CustomCache<TModel>(key => func.Invoke(sp, key));
+                if (string.IsNullOrWhiteSpace(categoryName))
+                {
+                    categoryName = TypeNameHelper.GetTypeDisplayName(typeof(TModel));
+                }
+                var provider = new CustomCacheProvider<TModel>(cache, categoryName);
+                return provider;
+            });
+            return builder;
+        }
+
+        /// <summary>
+        /// 添加自定义缓存
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="builder"></param>
+        /// <param name="func"></param>
+        /// <param name="suffix">后缀</param>
+        /// <returns></returns>
+        public static ICacheBuilder AddCustomCacheWithSuffix<TModel>(this ICacheBuilder builder, Func<IServiceProvider, string, Task<(bool, TModel)>> func, string suffix)
+        {
+            ArgumentNullException.ThrowIfNull(builder, nameof(builder));
+            ArgumentNullException.ThrowIfNull(func, nameof(func));
+
+            builder.Services.AddSingleton<ICacheProvider>(sp =>
+            {
+                var cache = new CustomCache<TModel>(key => func.Invoke(sp, key));
+                var categoryName = TypeNameHelper.GetTypeDisplayName(typeof(TModel)) + ":" + suffix.Trim();
                 var provider = new CustomCacheProvider<TModel>(cache, categoryName);
                 return provider;
             });
